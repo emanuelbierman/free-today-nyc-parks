@@ -1,0 +1,3 @@
+#!/usr/bin/env ruby
+
+FreeTodayNycParks::CLI.new.call
