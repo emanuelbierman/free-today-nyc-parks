@@ -1,4 +1,5 @@
 class FreeTodayNycParks::Event
+
   attr_accessor :title, :borough, :location, :time, :description, :url
 
   @@all = []
@@ -8,16 +9,19 @@ class FreeTodayNycParks::Event
     @@all << self
   end
 
+  def self.all
+    @@all
+  end
+
   def self.print_list
-    puts "Here's a formatted list!"
     # use heredocs to format this list?
-    # self.all.each do |event|
-      # puts event.title
+    self.all.each do |event|
+      puts "    #{event.title}"
       # puts event.location
       # puts event.time
       # puts event.description
       # puts event.url
-    # end
+    end
   end
 
   def self.filter_borough(borough)

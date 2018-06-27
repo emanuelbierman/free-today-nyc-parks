@@ -7,10 +7,11 @@ class FreeTodayNycParks::CLI
   end
 
   def start
+    puts ""
     puts "Every day there are free events happening all over NYC’s public parks."
     puts ""
     puts "Here are the events happening today:"
-    # FreeTodayNycParks::Scraper.new.scrape
+    FreeTodayNycParks::Scraper.new.scrape
     FreeTodayNycParks::Event.print_list
     puts "If you want to refine your search by borough, type in the borough:"
     puts "If you only want to see results starting from a certain time today, type in that time:"
