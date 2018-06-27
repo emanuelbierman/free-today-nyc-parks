@@ -1,0 +1,3 @@
+class FreeTodayNycParks::Event
+
+end

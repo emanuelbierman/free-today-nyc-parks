@@ -1,0 +1,3 @@
+class FreeTodayNycParks::Scraper
+
+end
