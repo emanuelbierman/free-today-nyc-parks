@@ -3,6 +3,7 @@ class FreeTodayNycParks::Event
   attr_accessor :title, :borough, :location, :time, :description, :url
 
   @@all = []
+  @@today = nil
 
   def initialize(title)
     @title = title
@@ -13,10 +14,20 @@ class FreeTodayNycParks::Event
     @@all
   end
 
+  def self.today=(today)
+    @@today = today
+  end
+
+  def self.today
+    @@today
+  end
+
   def self.print_list
     # use heredocs to format this list?
+    puts "Here are the events for #{self.today}:"
     self.all.each do |event|
       puts "    #{event.title}"
+      puts "    location"
       # puts event.location
       # puts event.time
       # puts event.description

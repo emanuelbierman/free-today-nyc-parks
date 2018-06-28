@@ -8,6 +8,8 @@ class FreeTodayNycParks::Scraper
       doc.css("div#events_leftcol h3 a").each do |title|
         FreeTodayNycParks::Event.new(title.content)
       end
+      today = doc.css("div#events_leftcol h2").text
+      FreeTodayNycParks::Event.today=(today)
   end
 
 end

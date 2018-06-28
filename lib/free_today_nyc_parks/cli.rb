@@ -10,7 +10,6 @@ class FreeTodayNycParks::CLI
     puts ""
     puts "Every day there are free events happening all over NYC’s public parks."
     puts ""
-    puts "Here are the events happening today:"
     FreeTodayNycParks::Scraper.new.scrape
     FreeTodayNycParks::Event.print_list
     puts "If you want to refine your search by borough, type in the borough:"
