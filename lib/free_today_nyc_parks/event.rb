@@ -28,6 +28,7 @@ class FreeTodayNycParks::Event
     self.all.each do |event|
       puts "What:    #{event.title}"
       puts "Where:   #{event.location}"
+      puts "Where:   #{event.description}"
       puts ""
       puts "--------------------------"
       puts ""

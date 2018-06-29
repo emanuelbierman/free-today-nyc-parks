@@ -15,6 +15,10 @@ class FreeTodayNycParks::Scraper
       descriptions = []
       doc.css("div#events_leftcol div span.description").each {|s| descriptions << s.text }
 
+      FreeTodayNycParks::Event.all.each_with_index do |event, index|
+        event.description = descriptions[index]
+      end
+
       locations = []
       doc.css("div#events_leftcol div h4.location span").each {|s| locations << s.text unless s.text.start_with?(",") }
 
