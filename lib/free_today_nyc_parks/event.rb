@@ -26,9 +26,11 @@ class FreeTodayNycParks::Event
     # use heredocs to format this list?
     puts "Here are the events for #{self.today}:"
     self.all.each do |event|
-      puts "    #{event.title}"
-      puts "    location"
-      # puts event.location
+      puts "What:    #{event.title}"
+      puts "Where:   #{event.location}"
+      puts ""
+      puts "--------------------------"
+      puts ""
       # puts event.time
       # puts event.description
       # puts event.url

@@ -12,12 +12,16 @@ class FreeTodayNycParks::Scraper
       today = doc.css("div#events_leftcol h2").text
       FreeTodayNycParks::Event.today=(today)
 
-      array_of_locations = @doc.css("div#events_leftcol div h4.location span").text.split(", ")
-
       locations = []
-      doc.css("div#events_leftcol div h4.location span").each {|e| locations << e.text }
+      doc.css("div#events_leftcol div h4.location span").each {|e| locations << e.text unless e.text.start_with?(",") }
 
-      one_location = doc.css("div#events_leftcol div h4.location span")[0].text
+      # locations.each_with_index do |loc|
+      #
+      # end
+
+      FreeTodayNycParks::Event.all.each_with_index do |event, index|
+        event.location = locations[index]
+      end
 
   end
 
