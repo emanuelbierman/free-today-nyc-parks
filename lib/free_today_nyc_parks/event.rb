@@ -1,9 +1,10 @@
 class FreeTodayNycParks::Event
 
-  attr_accessor :title, :borough, :location, :start_time, :end_time, :description, :url
+  attr_accessor :title, :borough, :location, :start_time, :end_time, :cost, :description, :url
 
   @@all = []
   @@today = nil
+  @@tomorrow = nil
 
   def initialize(title)
     @title = title
@@ -22,15 +23,24 @@ class FreeTodayNycParks::Event
     @@today
   end
 
+  def self.tomorrow=(tomorrow)
+    @@tomorrow = tomorrow
+  end
+
+  def self.tomorrow
+    @@tomorrow unless @@tomorrow == nil
+  end
+
   def self.print_list
     # use heredocs to format this list?
     puts "Here are the events for #{self.today}:"
     self.all.each do |event|
       puts "What:    #{event.title}"
-      puts "Where:  #{event.location}"
-      puts "When:  #{event.start_time} - #{event.end_time}"
-      puts "What:   #{event.description}"
+      puts "Where:   #{event.location}"
+      puts "When:    #{event.start_time} - #{event.end_time}"
+      puts "What:    #{event.description}"
       puts ""
+      # puts "Cost:    #{event.cost}"
       puts "--------------------------"
       puts ""
       # puts event.time

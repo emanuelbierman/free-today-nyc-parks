@@ -9,14 +9,21 @@ class FreeTodayNycParks::Scraper
         FreeTodayNycParks::Event.new(title.content)
       end
 
-      today = doc.css("div#events_leftcol h2").text
+      today = doc.css("div#events_leftcol h2")[0].text
       FreeTodayNycParks::Event.today=(today)
+
+      # if doc.css("div#events_leftcol h2")[1].text != nil
+      #   tomorrow = doc.css("div#events_leftcol h2")[1].text
+      #   FreeTodayNycParks::Event.tomorrow=(tomorrow)
+      # end
 
       start_times = []
       end_times = []
-      doc.css("div#events_leftcol div h4.location").each do |n|
-        start_times << n.next.next.next.css("strong")[0].text
-        end_times << n.next.next.next.css("strong")[1].text
+      cost = nil
+      doc.css("div#events_leftcol div.row").each do |n|
+        start_times << n.css("p strong")[0].text
+        end_times << n.css("p strong")[1].text
+        # cost = n.css("p strong")[3].text
       end
 
       locations = []
@@ -26,10 +33,10 @@ class FreeTodayNycParks::Scraper
       doc.css("div#events_leftcol div span.description").each {|s| descriptions << s.text }
 
       FreeTodayNycParks::Event.all.each_with_index do |event, index|
-        event.description = descriptions[index]
         event.start_time = start_times[index]
         event.end_time = end_times[index]
         event.location = locations[index]
+        event.description = descriptions[index]
       end
 
 
