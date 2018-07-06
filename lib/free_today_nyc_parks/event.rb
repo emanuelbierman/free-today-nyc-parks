@@ -1,6 +1,6 @@
 class FreeTodayNycParks::Event
 
-  attr_accessor :title, :borough, :location, :time, :description, :url
+  attr_accessor :title, :borough, :location, :start_time, :end_time, :description, :url
 
   @@all = []
   @@today = nil
@@ -27,8 +27,9 @@ class FreeTodayNycParks::Event
     puts "Here are the events for #{self.today}:"
     self.all.each do |event|
       puts "What:    #{event.title}"
-      puts "Where:   #{event.location}"
-      puts "Where:   #{event.description}"
+      puts "Where:  #{event.location}"
+      puts "When:  #{event.start_time} - #{event.end_time}"
+      puts "What:   #{event.description}"
       puts ""
       puts "--------------------------"
       puts ""
