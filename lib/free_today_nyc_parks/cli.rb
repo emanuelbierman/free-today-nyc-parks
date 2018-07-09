@@ -19,16 +19,17 @@ class FreeTodayNycParks::CLI
     # puts "If you only want to see results starting from a certain time today, type in that time:"
     # puts "To repeat the list of events happening today, type 'list':"
     # puts "Otherwise, type 'exit':"
-    input = gets.strip
-    case input
-    when "F"
-      FreeTodayNycParks::Event.filter_free
-    when "B"
-      FreeTodayNycParks::Event.filter_borough(input)
-    when "T"
-      FreeTodayNycParks::Event.filter_time(input)
-    when "L"
-      FreeTodayNycParks::Event.print_list
+    input = gets.strip.downcase[0]
+    unless input == "e"
+      if input == "f"
+        FreeTodayNycParks::Event.filter_free
+      elsif input == "b"
+        FreeTodayNycParks::Event.filter_borough(input)
+      elsif input == "t"
+        FreeTodayNycParks::Event.filter_time(input)
+      elsif input == "l"
+        FreeTodayNycParks::Event.print_list
+      end
     end
   end
 
