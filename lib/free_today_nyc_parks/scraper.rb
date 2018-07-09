@@ -19,12 +19,18 @@ class FreeTodayNycParks::Scraper
 
       start_times = []
       end_times = []
-      cost = nil
+      free_or_nil = []
       doc.css("div#events_leftcol div.row").each do |n|
         start_times << n.css("p strong")[0].text
         end_times << n.css("p strong")[1].text
-        # cost = n.css("p strong")[3].text
+        if n.css("p strong")[3] == nil
+          free_or_nil << "May have a nominal fee; see event url for more details"
+        else
+          free_or_nil << n.css("p strong")[3].text
+        end
       end
+
+      # "consult event url for more information on cost"
 
       locations = []
       doc.css("div#events_leftcol div h4.location span").each {|s| locations << s.text unless s.text.start_with?(",") }
@@ -37,6 +43,7 @@ class FreeTodayNycParks::Scraper
         event.end_time = end_times[index]
         event.location = locations[index]
         event.description = descriptions[index]
+        event.cost = free_or_nil[index]
       end
 
 

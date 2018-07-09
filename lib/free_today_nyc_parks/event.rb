@@ -34,26 +34,47 @@ class FreeTodayNycParks::Event
   def self.print_list
     # use heredocs to format this list?
     puts "Here are the events for #{self.today}:"
+    puts ""
     self.all.each do |event|
       puts "What:    #{event.title}"
       puts "Where:   #{event.location}"
       puts "When:    #{event.start_time} - #{event.end_time}"
       puts "What:    #{event.description}"
+      puts "Cost:    #{event.cost}"
       puts ""
-      # puts "Cost:    #{event.cost}"
       puts "--------------------------"
       puts ""
-      # puts event.time
-      # puts event.description
       # puts event.url
     end
   end
 
   def self.filter_borough(borough)
-    puts "Here are today's free events in #{borough}:"
+    puts "Here are today's events in #{borough}:"
   end
 
   def self.filter_time(time)
-    puts "Here are today's free events starting from #{time}"
+    puts "Here are today's events starting from #{time}:"
+  end
+
+  def self.free
+    self.all.reject do |event|
+      event.cost == nil
+    end
+  end
+
+  def self.filter_free
+    puts "Here are today's free events:"
+    puts ""
+    self.free.each do |event|
+      puts "What:    #{event.title}"
+      puts "Where:   #{event.location}"
+      puts "When:    #{event.start_time} - #{event.end_time}"
+      puts "What:    #{event.description}"
+      puts "Cost:    #{event.cost}"
+      puts ""
+      puts "--------------------------"
+      puts ""
+      # puts event.url ("for more information")
+    end
   end
 end
