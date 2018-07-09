@@ -30,10 +30,13 @@ class FreeTodayNycParks::Scraper
         end
       end
 
-      # "consult event url for more information on cost"
-
       locations = []
-      doc.css("div#events_leftcol div h4.location span").each {|s| locations << s.text unless s.text.start_with?(",") }
+      boroughs = []
+      # doc.css("div#events_leftcol div h4.location span").each {|s| locations << s.text unless s.text.start_with?(",") }
+      doc.css("div#events_leftcol div h4.location").each do |s|
+        locations << s.text
+        # boroughs << 
+      end
 
       descriptions = []
       doc.css("div#events_leftcol div span.description").each {|s| descriptions << s.text }
