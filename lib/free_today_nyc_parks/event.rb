@@ -41,7 +41,7 @@ class FreeTodayNycParks::Event
       puts "When:    #{event.start_time} - #{event.end_time}"
       puts "What:    #{event.description}"
       puts "Cost:    #{event.cost}"
-      puts "URL:     https://www.nycgovparks.org/#{event.url}"
+      puts "URL:     #{event.url}"
       puts ""
       puts "--------------------------"
       puts ""
