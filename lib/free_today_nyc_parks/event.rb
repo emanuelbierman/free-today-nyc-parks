@@ -57,8 +57,8 @@ class FreeTodayNycParks::Event
   end
 
   def self.free
-    self.all.reject do |event|
-      event.cost == nil
+    self.all.select do |event|
+      event.cost == "Free!"
     end
   end
 
@@ -77,4 +77,5 @@ class FreeTodayNycParks::Event
       # puts event.url ("for more information")
     end
   end
+
 end
