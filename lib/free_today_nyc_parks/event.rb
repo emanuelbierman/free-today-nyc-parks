@@ -1,3 +1,5 @@
+require 'pry'
+
 class FreeTodayNycParks::Event
 
   attr_accessor :title, :borough, :location, :start_time, :end_time, :cost, :description, :url
@@ -48,17 +50,31 @@ class FreeTodayNycParks::Event
     end
   end
 
-  def self.borough(input)
+  def self.search_borough(input)
+    input = input.split(", ")
 
+    boroughs = self.all.select do |event|
+      event.borough == input[0] || event.borough == input[1]
+    end
+
+    if boroughs != nil
+      boroughs
+    else
+      puts ""
+      puts "There are no remaining events in #{input.capitalize} for today."
+      puts ""
+    end
   end
 
-  def self.filter_borough
-    puts "Enter (M, Q, BR, BX, SI) to see a list of events in that borough,"
+  def self.select_borough
+    puts "Enter any number of boroughs separated by commas (Manhattan, Brooklyn, etc),"
     puts "or (C)ancel or (E)xit"
-    input = gets.chomp
-    puts "Here are today's events in #{borough}:"
+    input = gets.chomp.downcase
+    puts ""
+    puts "Here are today's events in #{input.capitalize}:"
+    puts ""
     unless input == "e"
-      self.borough(input).each do
+      self.search_borough(input).each do |event|
         puts "What:    #{event.title}"
         puts "Where:   #{event.location}"
         puts "When:    #{event.start_time} - #{event.end_time}"
@@ -72,17 +88,19 @@ class FreeTodayNycParks::Event
     end
   end
 
-  def self.time(input)
+  def self.search_time(input)
 
   end
 
-  def self.filter_time
+  def self.select_time
     puts "Enter a (12-hour)time to see a list of events starting from that time,"
     puts "or (c)ancel or (c)xit"
     input = gets.chomp[0].to_i
-    puts "Here are today's events starting from #{time}:"
+    puts ""
+    puts "Here are today's events starting from #{input}:"
+    puts ""
     unless input == "e"
-      self.time(input).each do
+      self.search_time(input).each do |event|
         puts "What:    #{event.title}"
         puts "Where:   #{event.location}"
         puts "When:    #{event.start_time} - #{event.end_time}"

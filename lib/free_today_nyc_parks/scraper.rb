@@ -1,5 +1,6 @@
 require 'nokogiri'
 require 'open-uri'
+require 'pry'
 
 class FreeTodayNycParks::Scraper
 
@@ -34,7 +35,7 @@ class FreeTodayNycParks::Scraper
       boroughs = []
       doc.css("div#events_leftcol div h4.location").each do |s|
         locations << s.text
-        boroughs << s.css("span")[2].text
+        boroughs << s.css("span")[2].text.downcase
       end
 
       descriptions = []
