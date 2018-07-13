@@ -48,12 +48,52 @@ class FreeTodayNycParks::Event
     end
   end
 
-  def self.filter_borough(borough)
-    puts "Here are today's events in #{borough}:"
+  def self.borough(input)
+
   end
 
-  def self.filter_time(time)
+  def self.filter_borough
+    puts "Enter (M, Q, BR, BX, SI) to see a list of events in that borough,"
+    puts "or (C)ancel or (E)xit"
+    input = gets.chomp
+    puts "Here are today's events in #{borough}:"
+    unless input == "e"
+      self.borough(input).each do
+        puts "What:    #{event.title}"
+        puts "Where:   #{event.location}"
+        puts "When:    #{event.start_time} - #{event.end_time}"
+        puts "What:    #{event.description}"
+        puts "Cost:    #{event.cost}"
+        puts "URL:     #{event.url}"
+        puts ""
+        puts "--------------------------"
+        puts ""
+      end
+    end
+  end
+
+  def self.time(input)
+
+  end
+
+  def self.filter_time
+    puts "Enter a (12-hour)time to see a list of events starting from that time,"
+    puts "or (c)ancel or (c)xit"
+    input = gets.chomp[0].to_i
     puts "Here are today's events starting from #{time}:"
+    unless input == "e"
+      self.time(input).each do
+        puts "What:    #{event.title}"
+        puts "Where:   #{event.location}"
+        puts "When:    #{event.start_time} - #{event.end_time}"
+        puts "What:    #{event.description}"
+        puts "Cost:    #{event.cost}"
+        puts "URL:     #{event.url}"
+        puts ""
+        puts "--------------------------"
+        puts ""
+      end
+    end
   end
 
   def self.free

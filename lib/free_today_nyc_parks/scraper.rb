@@ -32,10 +32,9 @@ class FreeTodayNycParks::Scraper
 
       locations = []
       boroughs = []
-      # doc.css("div#events_leftcol div h4.location span").each {|s| locations << s.text unless s.text.start_with?(",") }
       doc.css("div#events_leftcol div h4.location").each do |s|
         locations << s.text
-        # boroughs <<
+        boroughs << s.css("span")[2].text
       end
 
       descriptions = []
@@ -44,10 +43,13 @@ class FreeTodayNycParks::Scraper
       urls = []
       doc.css("div#events_leftcol h3 a").each {|s| urls << "https://www.nycgovparks.org" + s["href"] }
 
+      # accessibility
+
       FreeTodayNycParks::Event.all.each_with_index do |event, index|
         event.start_time = start_times[index]
         event.end_time = end_times[index]
         event.location = locations[index]
+        event.borough = boroughs[index]
         event.description = descriptions[index]
         event.cost = free_or_nil[index]
         event.url = urls[index]

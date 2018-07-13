@@ -24,10 +24,10 @@ class FreeTodayNycParks::CLI
         FreeTodayNycParks::Event.filter_free
         menu
       elsif input == "b"
-        FreeTodayNycParks::Event.filter_borough(input)
+        FreeTodayNycParks::Event.filter_borough
         menu
       elsif input == "t"
-        FreeTodayNycParks::Event.filter_time(input)
+        FreeTodayNycParks::Event.filter_time
         menu
       elsif input == "l"
         FreeTodayNycParks::Event.print_list
