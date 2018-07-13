@@ -16,22 +16,30 @@ class FreeTodayNycParks::CLI
   end
 
   def menu
-    puts "You can view all (F)ree events, filter by (B)orough,"
-    puts "filter by starting (T)ime, see the full (L)ist again, or (E)xit:"
-    input = gets.strip.downcase[0]
-    unless input == "e"
-      if input == "f"
-        FreeTodayNycParks::Event.filter_free
-        menu
-      elsif input == "b"
-        FreeTodayNycParks::Event.select_borough
-        menu
-      elsif input == "t"
-        FreeTodayNycParks::Event.select_time
-        menu
-      elsif input == "l"
-        FreeTodayNycParks::Event.print_list
-        menu
+    puts "To learn more about an event, enter its number:"
+    puts "Or you can view all (F)ree events,"
+    puts "or filter events by (B)orough or by starting (T)ime,"
+    puts "or see the full (L)ist again, or (E)xit:"
+    input = gets.strip
+    if input.to_i != 0
+      FreeTodayNycParks::Event.select_detail(input.to_i)
+      menu
+    else
+      input = input.downcase[0]
+      unless input == "e"
+        elsif input == "f"
+          FreeTodayNycParks::Event.filter_free
+          menu
+        elsif input == "b"
+          FreeTodayNycParks::Event.select_borough
+          menu
+        elsif input == "t"
+          FreeTodayNycParks::Event.select_time
+          menu
+        elsif input == "l"
+          FreeTodayNycParks::Event.print_list
+          menu
+        end
       end
     end
   end

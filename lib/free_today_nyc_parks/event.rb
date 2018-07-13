@@ -37,16 +37,35 @@ class FreeTodayNycParks::Event
     # use heredocs to format this list?
     puts "Here are the events for #{self.today}:"
     puts ""
-    self.all.each do |event|
+    self.all.each_with_index do |event, index|
+      puts "#{index}"
       puts "What:    #{event.title}"
       puts "Where:   #{event.location}"
       puts "When:    #{event.start_time} - #{event.end_time}"
-      puts "What:    #{event.description}"
-      puts "Cost:    #{event.cost}"
-      puts "URL:     #{event.url}"
       puts ""
       puts "--------------------------"
       puts ""
+    end
+  end
+
+  def print_detail
+    puts ""
+    puts "What:    #{self.title}"
+    puts "Where:   #{self.location}"
+    puts "When:    #{self.start_time} - #{self.end_time}"
+    puts "What:    #{self.description}"
+    puts "Cost:    #{self.cost}"
+    puts "URL:     #{self.url}"
+    puts ""
+    puts "--------------------------"
+    puts ""
+  end
+
+  def self.select_detail(input)
+    self.all.each_with_index do |event, index|
+      if input == index
+        event.print_detail
+      end
     end
   end
 
