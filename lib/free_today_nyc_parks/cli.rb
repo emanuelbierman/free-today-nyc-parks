@@ -27,7 +27,7 @@ class FreeTodayNycParks::CLI
     else
       input = input.downcase[0]
       unless input == "e"
-        elsif input == "f"
+        if input == "f"
           FreeTodayNycParks::Event.filter_free
           menu
         elsif input == "b"
