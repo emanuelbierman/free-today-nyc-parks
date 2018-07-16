@@ -1,8 +1,8 @@
 # FreeTodayNycParks
 
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/free_today_nyc_parks`. To experiment with that code, run `bin/console` for an interactive prompt.
+Every day, all year round, there are free events happening in public parks throughout the five boroughs of New York City. Whether it's around the corner from you or at the other end of your least favorite subway line, this gem will let you discover it for yourself by presenting today's events to you in a readable format.
 
-TODO: Delete this and the text above, and describe your gem
+Occasionally an event will charge a nominal fee or require a membership, so you have the option of viewing only free events. You can also refine the results by borough, or zoom in find out more about any particular events that catch your eye.
 
 ## Installation
 
@@ -22,7 +22,7 @@ Or install it yourself as:
 
 ## Usage
 
-TODO: Write usage instructions here
+You can call the CLI from `bin/free-today-nyc-parks` or run `free-today-nyc-parks` from your command line terminal. 
 
 ## Development
 

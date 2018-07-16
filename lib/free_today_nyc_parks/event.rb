@@ -48,7 +48,7 @@ class FreeTodayNycParks::Event
     end
   end
 
-  def print_detail
+  def detail
     puts ""
     puts "What:    #{self.title}"
     puts "Where:   #{self.location}"
@@ -61,10 +61,10 @@ class FreeTodayNycParks::Event
     puts ""
   end
 
-  def self.select_detail(input)
+  def self.print_detail(input)
     self.all.each_with_index do |event, index|
       if input == index
-        event.print_detail
+        event.detail
       end
     end
   end
@@ -92,13 +92,11 @@ class FreeTodayNycParks::Event
         puts ""
         puts "Here are today's events in #{input.capitalize}:"
         puts ""
-        self.search_borough(input).each do |event|
+        self.search_borough(input).each_with_index do |event, index|
+          puts "#{index}"
           puts "What:    #{event.title}"
           puts "Where:   #{event.location}"
           puts "When:    #{event.start_time} - #{event.end_time}"
-          puts "What:    #{event.description}"
-          puts "Cost:    #{event.cost}"
-          puts "URL:     #{event.url}"
           puts ""
           puts "--------------------------"
           puts ""
@@ -108,27 +106,37 @@ class FreeTodayNycParks::Event
   end
 
   def self.search_time(input)
+    input = input.split(", ")
 
+    self.all.select do |event|
+      event.borough == input[0] || event.borough == input[1]
+    end
   end
 
   def self.select_time
     puts "Enter a (12-hour)time to see a list of events starting from that time,"
-    puts "or (c)ancel or (c)xit"
-    input = gets.chomp[0].to_i
-    puts ""
-    puts "Here are today's events starting from #{input}:"
-    puts ""
+    puts "or (C)ancel or (E)xit"
+    input = gets.chomp.downcase
     unless input == "e"
-      self.search_time(input).each do |event|
-        puts "What:    #{event.title}"
-        puts "Where:   #{event.location}"
-        puts "When:    #{event.start_time} - #{event.end_time}"
-        puts "What:    #{event.description}"
-        puts "Cost:    #{event.cost}"
-        puts "URL:     #{event.url}"
+      if input == "c"
+        FreeTodayNycParks::CLI.menu
+      elsif self.search_borough(input) == []
         puts ""
-        puts "--------------------------"
+        puts "There are no remaining events in #{input.capitalize} for today."
         puts ""
+      else
+        puts ""
+        puts "Here are today's events in #{input.capitalize}:"
+        puts ""
+        self.search_borough(input).each_with_index do |event, index|
+          puts "#{index}"
+          puts "What:    #{event.title}"
+          puts "Where:   #{event.location}"
+          puts "When:    #{event.start_time} - #{event.end_time}"
+          puts ""
+          puts "--------------------------"
+          puts ""
+        end
       end
     end
   end

@@ -22,7 +22,7 @@ class FreeTodayNycParks::CLI
     puts "or see the full (L)ist again, or (E)xit:"
     input = gets.strip
     if input.to_i != 0
-      FreeTodayNycParks::Event.select_detail(input.to_i)
+      FreeTodayNycParks::Event.print_detail(input.to_i)
       menu
     else
       input = input.downcase[0]
