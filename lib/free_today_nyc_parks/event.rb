@@ -33,8 +33,7 @@ class FreeTodayNycParks::Event
     @@tomorrow unless @@tomorrow == nil
   end
 
-  def self.print_list
-    # use heredocs to format this list?
+  def self.print_all
     puts "Here are the events for #{self.today}:"
     puts ""
     self.all.each_with_index do |event, index|
@@ -46,6 +45,7 @@ class FreeTodayNycParks::Event
       puts "--------------------------"
       puts ""
     end
+    FreeTodayNycParks::CLI.new.menu
   end
 
   def detail
@@ -73,6 +73,7 @@ class FreeTodayNycParks::Event
       puts "Please enter a number from 1 to #{array.size}."
       puts ""
     end
+    FreeTodayNycParks::CLI.new.menu(array)
   end
 
   def self.select_borough(input)
@@ -85,12 +86,10 @@ class FreeTodayNycParks::Event
 
   def self.filter_borough
     puts "Enter any number of boroughs separated by commas (Manhattan, Brooklyn, etc):"
-    puts "or (C)ancel or (E)xit"
+    puts "or return to the full (L)ist:"
     input = gets.chomp.downcase
-    unless input == "e"
-      if input == "c"
-        FreeTodayNycParks::CLI.new.menu
-      elsif self.select_borough(input) == []
+    unless input == "l"
+      if self.select_borough(input) == []
         puts ""
         puts "There are no remaining events in #{input.capitalize} for today."
         puts ""
@@ -109,53 +108,6 @@ class FreeTodayNycParks::Event
           puts ""
         end
         FreeTodayNycParks::CLI.new.menu(selected_boroughs)
-      end
-    end
-  end
-
-  def self.select_time(input)
-    binding.pry
-    if input.include?(":")
-      hour = input.split(/:/)[0].to_i
-      self.all.select do |event|
-        event.start_time.split(":")[0] >= hour
-      end
-    else
-      self.all.select do |event|
-        event.start_time.split(":")[0] >= input
-      end
-    end
-    # if input.include?(/[ap]\.m\./)
-    #   meridiem = input.grep(/[ap](?=\.m\.)/)
-    #   if meridiem == "a"
-  end
-
-  def self.filter_time
-    puts "Enter a (1-12) time to see a list of events starting from that hour:"
-    puts "or see the full (L)ist again, or (E)xit:"
-    input = gets.chomp.downcase
-    unless input == "e"
-      if input == "l"
-        self.print_list
-      elsif self.select_time(input) == []
-        puts ""
-        puts "There are no events happening today at or after #{input}."
-        puts ""
-      else
-        puts ""
-        puts "Here are today's events starting from #{input}:"
-        puts ""
-        selected_times = self.select_time(input)
-        selected_times.each_with_index do |event, index|
-          puts "#{index + 1}"
-          puts "What:    #{event.title}"
-          puts "Where:   #{event.location}"
-          puts "When:    #{event.start_time} - #{event.end_time}"
-          puts ""
-          puts "--------------------------"
-          puts ""
-        end
-        FreeTodayNycParks::CLI.new.menu(selected_times)
       end
     end
   end
@@ -180,5 +132,52 @@ class FreeTodayNycParks::Event
     end
     FreeTodayNycParks::CLI.new.menu(self.free)
   end
+
+  # def self.select_time(input)
+  #   binding.pry
+  #   if input.include?(":")
+  #     hour = input.split(/:/)[0].to_i
+  #     self.all.select do |event|
+  #       event.start_time.split(":")[0] >= hour
+  #     end
+  #   else
+  #     self.all.select do |event|
+  #       event.start_time.split(":")[0] >= input
+  #     end
+  #   end
+  #   # if input.include?(/[ap]\.m\./)
+  #   #   meridiem = input.grep(/[ap](?=\.m\.)/)
+  #   #   if meridiem == "a"
+  # end
+
+  # def self.filter_time
+  #   puts "Enter a (1-12) time to see a list of events starting from that hour:"
+  #   puts "or see the full (L)ist again, or (E)xit:"
+  #   input = gets.chomp.downcase
+  #   unless input == "e"
+  #     if input == "l"
+  #       self.print_list
+  #     elsif self.select_time(input) == []
+  #       puts ""
+  #       puts "There are no events happening today at or after #{input}."
+  #       puts ""
+  #     else
+  #       puts ""
+  #       puts "Here are today's events starting from #{input}:"
+  #       puts ""
+  #       selected_times = self.select_time(input)
+  #       selected_times.each_with_index do |event, index|
+  #         puts "#{index + 1}"
+  #         puts "What:    #{event.title}"
+  #         puts "Where:   #{event.location}"
+  #         puts "When:    #{event.start_time} - #{event.end_time}"
+  #         puts ""
+  #         puts "--------------------------"
+  #         puts ""
+  #       end
+  #       FreeTodayNycParks::CLI.new.menu(selected_times)
+  #     end
+  #   end
+  # end
 
 end
