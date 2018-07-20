@@ -25,14 +25,6 @@ class FreeTodayNycParks::Event
     @@today
   end
 
-  def self.tomorrow=(tomorrow)
-    @@tomorrow = tomorrow
-  end
-
-  def self.tomorrow
-    @@tomorrow unless @@tomorrow == nil
-  end
-
   def self.print_all
     puts "Here are the events for #{self.today}:"
     puts ""
@@ -77,38 +69,37 @@ class FreeTodayNycParks::Event
   end
 
   def self.select_borough(input)
-    input = input.split(", ")
-
     self.all.select do |event|
-      event.borough == input[0] || event.borough == input[1]
+      event.borough == input
     end
   end
 
   def self.filter_borough
-    puts "Enter any number of boroughs separated by commas (Manhattan, Brooklyn, etc):"
+    puts "Enter a borough (Manhattan, Bronx, etc):"
     puts "or return to the full (L)ist:"
     input = gets.chomp.downcase
-    unless input == "l"
-      if self.select_borough(input) == []
+    if input == "l"
+      self.print_all
+    elsif self.select_borough(input) == []
+      puts ""
+      puts "There are no remaining events in #{input.capitalize} for today."
+      puts ""
+      self.filter_borough
+    else
+      puts ""
+      puts "Here are today's events in #{input.capitalize}:"
+      puts ""
+      selected_boroughs = self.select_borough(input)
+      selected_boroughs.each_with_index do |event, index|
+        puts "#{index + 1}"
+        puts "What:    #{event.title}"
+        puts "Where:   #{event.location}"
+        puts "When:    #{event.start_time} - #{event.end_time}"
         puts ""
-        puts "There are no remaining events in #{input.capitalize} for today."
+        puts "--------------------------"
         puts ""
-      else
-        puts ""
-        puts "Here are today's events in #{input.capitalize}:"
-        puts ""
-        selected_boroughs = self.select_borough(input)
-        selected_boroughs.each_with_index do |event, index|
-          puts "#{index + 1}"
-          puts "What:    #{event.title}"
-          puts "Where:   #{event.location}"
-          puts "When:    #{event.start_time} - #{event.end_time}"
-          puts ""
-          puts "--------------------------"
-          puts ""
-        end
-        FreeTodayNycParks::CLI.new.menu(selected_boroughs)
       end
+      FreeTodayNycParks::CLI.new.menu(selected_boroughs)
     end
   end
 

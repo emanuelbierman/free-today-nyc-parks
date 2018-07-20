@@ -29,9 +29,6 @@ class FreeTodayNycParks::CLI
           FreeTodayNycParks::Event.filter_free
         elsif input == "b"
           FreeTodayNycParks::Event.filter_borough
-        # elsif input == "t"
-        #   FreeTodayNycParks::Event.filter_time
-        #   menu
         elsif input == "l"
           FreeTodayNycParks::Event.print_all
         end
