@@ -1,5 +1,5 @@
 #!/usr/bin/env ruby
 
-require "./lib/free_today_nyc_parks"
+require_relative "../lib/free_today_nyc_parks"
 
 FreeTodayNycParks::CLI.new.call
